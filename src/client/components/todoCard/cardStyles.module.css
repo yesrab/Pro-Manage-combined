@@ -1,0 +1,130 @@
+.cardContainer {
+  position: relative;
+  background-color: var(--background);
+  border-radius: 20px;
+  padding: 5%;
+  font-family: "Poppins", sans-serif;
+}
+.cardContainer > header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardContainer > header > img {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  right: 15%;
+  top: 3%;
+  width: 50%;
+  background-color: white;
+  box-shadow: 0px 2px 22px 0px #7e7a7a40;
+  border-radius: 12px;
+  list-style-type: none;
+  padding: 5%;
+  margin: 0;
+  gap: 10px;
+}
+.dropdown button {
+  font-family: "Poppins", sans-serif;
+  background-color: white;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+}
+
+.dropdown button:hover {
+  background-color: #eeecec;
+}
+
+.moveButtonContainer {
+  display: flex;
+  font-size: 8px;
+  margin-top: 5%;
+}
+
+.moveButtonContainer > div {
+  width: 100%;
+  display: flex;
+  gap: 2%;
+  justify-content: end;
+}
+
+.footerChips {
+  background-color: rgba(238, 236, 236, 1);
+  color: #767575;
+  border: none;
+  border-radius: 5px;
+  padding: 3%;
+  font-size: 150%;
+  transition: transform 0.3s ease;
+}
+
+.date {
+  background-color: rgba(238, 236, 236, 1);
+  color: #767575;
+  border: none;
+  border-radius: 5px;
+  padding: 3%;
+  font-size: 150%;
+  transition: transform 0.3s ease;
+}
+
+.deadLineDate {
+  background-color: #cf3636;
+  color: white;
+}
+
+.doneColor {
+  background-color: #63c05b;
+  color: white;
+}
+.footerChips:hover {
+  transform: scale(1.1);
+  background-color: rgba(238, 236, 236, 0.5);
+}
+
+.cardContainer > h3 {
+  font-weight: 500;
+  margin-bottom: 5%;
+}
+.accordionContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordionTitle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.accordionTitle > img {
+  background-color: #eeecec;
+  padding: 2%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* .accordionItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+} */
+
+.accordionItemsChildren {
+  display: flex;
+  padding: 1%;
+  border: 2px solid #e2e2e2;
+  border-radius: 10px;
+  gap: 1%;
+  accent-color: #17a2b8;
+}
+.accordionItemsChildren input[type="checkbox"] {
+  width: 20px;
+  margin: 1%;
+}

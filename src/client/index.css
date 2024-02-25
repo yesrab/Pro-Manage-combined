@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --foreground: #17a2b8;
+  --background: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+}
+

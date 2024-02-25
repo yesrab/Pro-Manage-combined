@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+}
+.columnLoader {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1em;
+  height: 10%;
+  width: 100%;
+}

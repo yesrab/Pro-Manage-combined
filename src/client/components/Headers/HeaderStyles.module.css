@@ -1,0 +1,45 @@
+.TopHeading {
+  font-family: "Poppins", sans-serif;
+  height: 20%;
+}
+
+.TopHeading > div > h3 {
+  font-weight: 600;
+}
+
+.TopHeading > div > p {
+  font-family: "Poppins", sans-serif;
+  color: #707070;
+  font-weight: 500;
+}
+.TopHeading > div {
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.TopHeading > div > h2 {
+  font-weight: 500;
+}
+
+.dropDownMenu select {
+  /* appearance: none; */
+  width: 100%;
+  padding: 5% 10%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropDownMenu select option {
+  padding: 10%;
+}
+
+.dropDownMenu {
+  /* appearance: none; */
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}

@@ -1,0 +1,46 @@
+.columnContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  gap: 2%;
+  padding: 3%;
+}
+.collumnHeadder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.collumnHeadder > h2 {
+  font-weight: 500;
+  font-size: 16;
+}
+.collumnHeadder > div {
+  display: flex;
+  gap: 20px;
+}
+
+.collumnHeadder > div > img {
+  cursor: pointer;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  height: 100%;
+  overflow-x: auto;
+}
+
+.cardsContainer::-webkit-scrollbar {
+  width: 10px;
+}
+.cardsContainer::-webkit-scrollbar-track {
+  background: inherit;
+}
+.cardsContainer::-webkit-scrollbar-thumb {
+  border: 2px solid #eef2f5;
+  background: #9cb7c5;
+  border-radius: 10px;
+}

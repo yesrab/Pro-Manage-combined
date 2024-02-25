@@ -1,0 +1,39 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.anyliticsHeader {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.5em;
+  padding: 2%;
+}
+.dataContainer {
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+  gap: 5%;
+  padding: 1%;
+}
+
+.dataContainer table {
+  background-color: #f9fcff;
+  padding: 2%;
+  width: 30%;
+  border-radius: 1em;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+td {
+  padding: 1%;
+  font-size: 1.5em;
+}
+td > span {
+  color: #90c4cc;
+  font-size: 2em;
+}

@@ -1,0 +1,92 @@
+.containerWelcome {
+  background-color: var(--foreground);
+  font-family: "Open Sans", sans-serif;
+  color: var(--background);
+  width: 60%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 5%;
+}
+.Logo {
+  /* padding: 10%; */
+  height: 50%;
+}
+.WelcomeMessage {
+  margin-top: 1em;
+}
+.formContainer {
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+}
+.formContainer > h2 {
+  margin-bottom: 10%;
+}
+.formContainer form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.formElements {
+  width: 70%;
+}
+.formContainer input {
+  border: none;
+  outline: none;
+  font-size: 19px;
+  margin-right: auto;
+  flex-grow: 1;
+  margin-right: 2%;
+}
+.inputContainer {
+  border: 2px solid #d0d0d0;
+  min-width: 70%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputContainer img {
+  padding: 1%;
+  cursor: pointer;
+}
+
+.formErrorMessage {
+  font-size: 14px;
+  text-align: start;
+  min-width: 70%;
+  color: red;
+}
+
+.submitContainer {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  min-width: 70%;
+  gap: 1em;
+  text-align: center;
+  color: #828282;
+}
+.submitContainer button {
+  border: none;
+  border-radius: 2em;
+  background-color: var(--foreground);
+  color: var(--background);
+  padding: 3%;
+  cursor: pointer;
+}
+.submitContainer a {
+  text-decoration: none;
+  border: 2px solid var(--foreground);
+  border-radius: 2em;
+  color: var(--foreground);
+  padding: 3%;
+}

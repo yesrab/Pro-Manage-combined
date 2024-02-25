@@ -1,0 +1,243 @@
+.modalWrapperStyles {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: none;
+  border-radius: 10px;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(48, 61, 67, 0.55);
+  z-index: 999;
+}
+
+.addCardContainer {
+  /* background-color: yellow; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  /* border: 2px solid red; */
+  padding: 1%;
+  font-family: "Inter", sans-serif;
+  min-width: 45vw;
+  height: 63vh;
+}
+
+.addCardContainer > form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addCardContainer > form > label {
+  width: 100%;
+}
+
+.PriorityContainer {
+  width: 100%;
+  display: flex;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  justify-content: space-evenly;
+  gap: 3%;
+}
+
+.inputBoxes {
+  font-size: 14px;
+  padding: 2% 1% 2% 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+  border: 2px solid rgba(226, 226, 226, 1);
+  box-shadow: 0px 1px 2px 0px rgba(77, 64, 85, 0.1);
+}
+
+.red {
+  color: red;
+}
+.blue {
+  color: rgba(24, 176, 255, 1);
+}
+
+.green {
+  color: rgba(99, 192, 91, 1);
+}
+
+.Priority {
+  display: none;
+}
+.PriorityLable {
+  border: 2px solid rgba(226, 226, 226, 1);
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 1%;
+  cursor: pointer;
+}
+
+.CheckBoxLables {
+  border: none;
+}
+
+.highRadio:checked ~ .high,
+.mediumRadio:checked ~ .medium,
+.lowRadio:checked ~ .low {
+  background-color: rgba(238, 236, 236, 1);
+}
+
+.TaskListWrapper {
+  width: 100%;
+  height: 50%;
+  /* border: 2px solid yellow; */
+}
+
+.TaskListContainer {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  /* border: 2px solid red; */
+}
+.TaskListContainer::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.TaskListContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+.TaskListContainer::-webkit-scrollbar-thumb {
+  background: rgba(156, 183, 197, 1); /* Color of the thumb */
+  border-radius: 6px; /* Roundness of the thumb */
+}
+
+.addTask {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  color: rgba(118, 117, 117, 1);
+  padding: 1%;
+  outline: none;
+}
+
+.inputBoxContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.todoCheckbox {
+  accent-color: rgba(23, 162, 184, 1);
+  width: 20px;
+}
+.tasklistInput {
+  flex-grow: 1;
+  margin-right: 1%;
+  margin-left: 1%;
+  border: none;
+  outline: none;
+}
+
+.date {
+  display: none;
+}
+
+.modalDateOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(48, 61, 67, 0.55);
+  z-index: 1;
+}
+
+.DatePicker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0px 12px 22px 0px rgba(38, 36, 36, 0.25);
+  z-index: 2;
+}
+
+.footerButtonRow {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 19px;
+}
+.footerActionButton {
+  min-width: 60%;
+  gap: 5%;
+  display: flex;
+  justify-content: end;
+}
+
+.footerButtons {
+  background-color: inherit;
+  font-size: 19px;
+  border: 2px solid rgba(226, 226, 226, 1);
+  padding: 1% 5% 1% 5%;
+  border-radius: 10px;
+  color: rgba(112, 112, 112, 1);
+}
+
+.footerCancle {
+  color: red;
+  border: 2px solid red;
+}
+
+.footerSave {
+  background-color: var(--foreground);
+  border: 2px solid var(--background);
+  color: white;
+}
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.confirmBoxContainer {
+  font-family: "Noto Sans", sans-serif;
+}
+
+.confirmboxButtons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 5% 0 5% 0;
+}
+
+.confirmboxButtons button {
+  font-size: 1em;
+  padding: 3%;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  border-radius: 1em;
+}
+
+.confirmboxButtons button:nth-child(1) {
+  background-color: var(--foreground);
+  color: var(--background);
+  border: none;
+}
+
+.confirmboxButtons button:nth-child(2) {
+  background-color: var(--background);
+  color: red;
+  border: 2px solid red;
+}
+
+.dateFoot {
+  font-size: 0.6em;
+}
