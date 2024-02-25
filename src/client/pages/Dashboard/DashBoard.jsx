@@ -49,7 +49,7 @@ export const loader = async ({ request, params, loginState }) => {
   }
   return null;
 };
-export const action = async ({ request, params }) => {
+export const action = async ({ request, params, loginState }) => {
   console.log("request ", request);
   const card = await request.json();
   const url = "/api/v1/notes/getallnotes";
@@ -58,7 +58,7 @@ export const action = async ({ request, params }) => {
     body: JSON.stringify(card),
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${login.token}`,
+      "Authorization": `Bearer ${loginState.token}`,
     },
   });
   console.log("actual data sent:", card);

@@ -37,7 +37,9 @@ function App() {
           }}
           element={<HomePageLayout />}>
           <Route
-            action={dashBoardAction}
+            action={({ request, params }) => {
+              return dashBoardAction({ request, params, loginState });
+            }}
             loader={({ request, params }) => {
               return dashBoardLoader({ request, params, loginState });
             }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import styles from "./HeaderStyles.module.css";
 import { useSearchParams } from "react-router-dom";
 import { getCurrentFormattedDate } from "../../libs/dateFormatter";
@@ -10,7 +10,7 @@ function DashBoardHeader({ name }) {
     setDropDownVal(selectedOption);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function getSearchParamsObject(searchParams) {
       const paramsObject = {};
       for (const [key, value] of searchParams.entries()) {
