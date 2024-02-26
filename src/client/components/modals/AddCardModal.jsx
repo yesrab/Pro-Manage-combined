@@ -143,7 +143,6 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
     makeFormValidatorFunctions();
   }, [todoList]);
 
-  const fetcher = useFetcher();
   const submiter = (e) => {
     const canSubmit = handleSubmit(e);
     // console.log(canSubmit);

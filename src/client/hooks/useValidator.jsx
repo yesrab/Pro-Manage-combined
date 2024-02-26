@@ -3,20 +3,19 @@ import { useEffect, useState } from "react";
 const useValidator = (initialState, validationRules, submit, method) => {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value || null,
-    });
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validateForm(formData, validationRules);
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Form is valid. Data submitted : responce from hook");
+      console.log("Form is valid and can be submitted : responce from hook");
       return true;
     } else {
       setErrors(validationErrors);

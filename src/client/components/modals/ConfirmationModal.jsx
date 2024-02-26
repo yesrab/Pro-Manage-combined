@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ModalStyles.module.css";
-function ConfirmationModal({ toggleModal, deleteNote, type }) {
+function ConfirmationModal({ toggleModal, deleteNote, type, logOut }) {
   return (
     <div className={styles.confirmBoxContainer}>
       <h3>
@@ -11,9 +11,9 @@ function ConfirmationModal({ toggleModal, deleteNote, type }) {
       <div className={styles.confirmboxButtons}>
         <button
           onClick={() => {
-            type === "delete" ? deleteNote() : null;
+            type === "delete" ? deleteNote() : logOut();
           }}>
-          Yes, Delete
+          {type === "delete" ? "Yes, Delete" : "Yes,  Logout"}
         </button>
         <button onClick={toggleModal}>Cancel</button>
       </div>

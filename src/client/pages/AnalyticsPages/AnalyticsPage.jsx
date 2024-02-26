@@ -32,27 +32,27 @@ function AnalyticsPage() {
                       <td className={styles.name}>
                         <span>&bull;</span> Backlog Tasks
                       </td>
-                      <td>{data.anyliticsData.backlogTask}</td>
+                      <td>{data.anyliticsData.backlogTask || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span> To-do Tasks
                       </td>
-                      <td>{data.anyliticsData.todoTask}</td>
+                      <td>{data.anyliticsData.todoTask || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         In-Progress Tasks
                       </td>
-                      <td>{data.anyliticsData.inProgressTask}</td>
+                      <td>{data.anyliticsData.inProgressTask || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         Completed Tasks
                       </td>
-                      <td>{data.anyliticsData.totalCheckedTodos}</td>
+                      <td>{data.anyliticsData.totalCheckedTodos || "0"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -62,27 +62,27 @@ function AnalyticsPage() {
                       <td className={styles.name}>
                         <span>&bull;</span> Low Priority
                       </td>
-                      <td>{data.anyliticsData.lowPriority}</td>
+                      <td>{data.anyliticsData.lowPriority || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span> Moderate Priority
                       </td>
-                      <td>{data.anyliticsData.moderatePriority}</td>
+                      <td>{data.anyliticsData.moderatePriority || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         High Priority
                       </td>
-                      <td>{data.anyliticsData.highPriority}</td>
+                      <td>{data.anyliticsData.highPriority || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         Due Date Tasks
                       </td>
-                      <td>{data.anyliticsData.totalTodosWithDueDate}</td>
+                      <td>{data.anyliticsData.totalTodosWithDueDate || "0"}</td>
                     </tr>
                   </tbody>
                 </table>

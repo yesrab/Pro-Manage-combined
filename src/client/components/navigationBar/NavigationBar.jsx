@@ -7,13 +7,10 @@ import Settings from "../../assets/settings.svg";
 import Logout from "../../assets/Logout.svg";
 import LoginContext from "../../context/LoginContext";
 import { NavLink, useNavigate } from "react-router-dom";
-function NavigationBar() {
+function NavigationBar({ logOut }) {
   const { loginState, dispatch } = useContext(LoginContext);
   const nav = useNavigate();
-  const logOut = () => {
-    dispatch({ type: "LOGOUT" });
-    nav("/", { replace: true });
-  };
+
   return (
     <nav className={styles.navigation}>
       <h3 className={styles.Navlinks}>

@@ -1,8 +1,15 @@
 const mongoose = require("mongoose");
 const accountError = require("../errors/accountError");
-// const jobError = require("../errors/jobError");
+const noteError = require("../errors/noteError");
 const errorHandler = (err, req, res, next) => {
-  console.log("error", err);
+  console.log("instance of ", err instanceof mongoose.Error.ValidationError);
+  console.log("error from error handler", err);
+
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    // Handling JSON parse errors
+    return res.status(400).json({ msg: "Invalid JSON", status: "Error" });
+  }
+
   if (err.code === 11000) {
     return accountError(err, req, res);
   }
@@ -10,14 +17,19 @@ const errorHandler = (err, req, res, next) => {
     if (err.message.includes("Account validation failed")) {
       return accountError(err, req, res);
     }
-    if (err.message.includes("jobData validation failed")) {
-      // return jobError(err, req, res);
+    if (err.message.includes("Notes validation failed")) {
+      return noteError(err, req, res);
     }
   }
   if (err instanceof mongoose.Error) {
     if (JSON.parse(err.message).msg.includes("Incorrect")) {
       return accountError(err, req, res);
     }
+  }
+  if (err instanceof mongoose.Error.ObjectParameterError) {
+    return res
+      .status(400)
+      .json({ msg: "Invalid input object format", status: "Error" });
   }
   return res.status(500).json({
     msg: "Something went wrong! Please try after some time",

@@ -23,6 +23,9 @@ import AnalyticsPage, {
 } from "./pages/AnalyticsPages/AnalyticsPage";
 import toastPromice from "./libs/toastPromiseUtil";
 import Loading from "./pages/LoadingPage/Loading";
+import Settings, {
+  action as settingsAction,
+} from "./pages/SettingsPage/Settings";
 function App() {
   const { loginState, dispatch } = useContext(LoginContext);
   // console.log("context", loginState.login);
@@ -53,7 +56,18 @@ function App() {
             }}
             element={<AnalyticsPage />}
           />
-          <Route path='/settings' element={<Loading />} />
+          <Route
+            action={async ({ request }) => {
+              const data = await settingsAction({ request, loginState });
+              if (data.status === "success") {
+                dispatch({ type: "LOGOUT" });
+                return redirect("/login", { replace: true });
+              }
+              return null;
+            }}
+            path='/settings'
+            element={<Settings />}
+          />
         </Route>
         <Route
           path='/login'

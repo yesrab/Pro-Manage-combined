@@ -5,7 +5,7 @@ const getAllNotes = async (req, res) => {
   // console.log("time recived:", timefilter);
   if (!tokenData || !clientTime || !timefilter) {
     return res
-      .status(406)
+      .status(400)
       .json({ msg: "request data missing", status: "Error" });
   }
   let startDate;
@@ -41,11 +41,16 @@ const getAllNotes = async (req, res) => {
     .json({ createdBy: tokenData.id, data: note, status: "success" });
 };
 
-const addNote = async (req, res) => {
+const addNote = async (req, res, next) => {
   const { title, dueDate, Priority, section, todos } = req.body;
   const { tokenData, clientTime, timefilter } = res.locals;
   // console.log(tokenData.id);
-
+  if (typeof todos != "object") {
+    return res.status(400).json({
+      status: "Error",
+      msg: "todo needs to be and array of objects",
+    });
+  }
   const submittedNote = await Note.create({
     title,
     dueDate,
@@ -54,8 +59,9 @@ const addNote = async (req, res) => {
     todos,
     createdBy: tokenData.id,
   });
+  return res.status(201).json({ submittedNote, status: "success" });
+
   // console.log(submittedNote);
-  res.json({ submittedNote, status: "success" });
 };
 
 const alterNote = async (req, res) => {

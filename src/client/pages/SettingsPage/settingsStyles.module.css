@@ -1,0 +1,51 @@
+.container {
+  font-family: "Open Sans", sans-serif;
+  /* background-color: blanchedalmond; */
+  width: 85%;
+  padding: 3%;
+}
+.hedding {
+  font-weight: 600;
+}
+
+.updateForm {
+  margin-top: 4%;
+  /* background-color: aquamarine; */
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 1em;
+}
+.updateForm button {
+  background-color: var(--foreground);
+  color: var(--background);
+  border-radius: 1em;
+  border: none;
+  padding: 1%;
+  height: 2em;
+  cursor: pointer;
+}
+
+.inputFields {
+  display: flex;
+  width: 100%;
+  /* background-color: aqua; */
+  justify-content: space-between;
+  border-radius: 0.5em;
+  border: 2px solid #d0d0d0;
+}
+
+.inputFields input {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+}
+.inputFields img {
+  cursor: pointer;
+}
+
+.validation {
+  color: red;
+  font-size: 0.6em;
+}

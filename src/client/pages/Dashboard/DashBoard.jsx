@@ -7,16 +7,13 @@ import React, {
 } from "react";
 import DashBoardHeader from "../../components/Headers/DashBoardHeader";
 import styles from "./DashBoardStyles.module.css";
-import Backlog from "../../components/dashboardColumns/Backlog";
-import Done from "../../components/dashboardColumns/Done";
-import InProgress from "../../components/dashboardColumns/InProgress";
 import CardsContainerColumn from "../../components/dashboardColumns/CardsContainerColumn";
 import ModelWrapper from "../../components/modals/ModalWrapper";
 import AddCardModal from "../../components/modals/AddCardModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
 import LoginContext from "../../context/LoginContext.js";
 import fetchUtils from "../../libs/fetchUtils.js";
-import { useLoaderData, defer, Await, redirect } from "react-router-dom";
+import { useLoaderData, Await, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ColumnLoader } from "../LoadingPage/Loading.jsx";
 import toastPromice from "../../libs/toastPromiseUtil.js";
@@ -29,7 +26,7 @@ export const loader = async ({ request, params, loginState }) => {
   if (timeframe) {
     FetchUrl.searchParams.set("timeframe", timeframe);
   } else {
-    FetchUrl.searchParams.delete("timeframe");
+    FetchUrl.searchParams.set("timeframe", "This Week");
   }
   console.log("dashboard loader fired");
   const time = new Date().toISOString();
@@ -128,8 +125,9 @@ function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [NoteReference, setNoteReference] = useState(null);
-
-  // console.log("reducer state", allNotes);
+  // const { logOut, setModalType, modalType, setIsModalOpen, isModalOpen } =
+  //   useOutletContext();
+  // console.log("reducer state", logOut);
   useEffect(() => {
     dispatch({ type: "SET_INITIAL_STATE", payload: data });
 
