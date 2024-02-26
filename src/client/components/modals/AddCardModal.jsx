@@ -46,11 +46,15 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
     setTodoList(filteredList);
   };
   const handleInputChange = (id, newValue) => {
-    const updatedTodoList = todoList.map((item) => (item.id === id ? { ...item, value: newValue } : item));
+    const updatedTodoList = todoList.map((item) =>
+      item.id === id ? { ...item, value: newValue } : item
+    );
     setTodoList(updatedTodoList);
   };
   const handleCheckboxChange = (id) => {
-    const updatedTodoList = todoList.map((item) => (item.id === id ? { ...item, check: !item.check } : item));
+    const updatedTodoList = todoList.map((item) =>
+      item.id === id ? { ...item, check: !item.check } : item
+    );
     setTodoList(updatedTodoList);
   };
   const getCheckedCount = () => {
@@ -68,14 +72,11 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
     submit,
     "POST"
   );
-  // console.log("errors in modal", errors);
 
   useEffect(() => {
-    // console.log("add card modal", NoteReference);
-    // console.log("add card modal", allNotes);
     if (NoteReference) {
       const noteIndex = allNotes.data.findIndex((noteObj) => noteObj._id === NoteReference);
-      // console.log(noteIndex);
+
       const noteObj = allNotes.data[noteIndex];
       setNoteToEdit(noteObj);
       const localisedTodoArray = noteObj.todos.map((note, index) => {
@@ -83,7 +84,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
       });
       setTodoList(localisedTodoArray);
       setNextId(localisedTodoArray.length + 1);
-      // console.log("restructured data", localisedTodoArray);
+
       setDate(noteObj?.dueDate !== null ? new Date(noteObj.dueDate) : undefined);
 
       const formEarlyExit = JSON.parse(JSON.stringify(noteObj));
@@ -136,7 +137,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
 
   const submiter = (e) => {
     const canSubmit = handleSubmit(e);
-    // console.log(canSubmit);
+
     const formData = new FormData(e.target);
     formData.set("section", noteToEdit?.section || "todo");
     formData.set("visibility", noteToEdit?.visibility || "private");
@@ -167,29 +168,21 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
       visibility: formData.get("visibility") || "private",
       todos: todos,
     };
-    // console.log("all todos", todoList);
-    // console.log("form loop orignal", formObj);
-    console.log("modified comparison:", formModificaton);
-    console.log("formatted", formattedData);
+
     const isFormModified = JSON.stringify(formattedData) == JSON.stringify(formModificaton);
-    console.log("early exit condition", isFormModified);
+
     if (isFormModified) {
       toggleModal();
       return;
     }
     if (canSubmit) {
-      // console.log("actual constructed data ", formattedData);
-
       if (hasNoteKey) {
-        console.log('At least one key starts with "note"');
-        // submit(formData, { method: "POST" });
         submit(formattedData, {
           method: noteToEdit ? "PUT" : "POST",
           encType: "application/json",
         });
         toggleModal();
       } else {
-        console.log('No key starts with "note"');
         toast.error("Please add atleast one note");
       }
     }
@@ -262,7 +255,9 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
               ? todoList?.map((item, key) => {
                   return (
                     <span key={item.id}>
-                      {errors[`note:${item.id}`] && <span className={styles.error}>{errors[`note:${item.id}`]}</span>}
+                      {errors[`note:${item.id}`] && (
+                        <span className={styles.error}>{errors[`note:${item.id}`]}</span>
+                      )}
                       <div className={`${styles.inputBoxes} ${styles.inputBoxContainer} `}>
                         <input
                           name={`check:${item.id}`}

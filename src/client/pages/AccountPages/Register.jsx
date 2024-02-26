@@ -7,14 +7,13 @@ import fetchUtils from "../../libs/fetchUtils";
 import toastPromice from "../../libs/toastPromiseUtil";
 import { redirect } from "react-router-dom";
 export const action = async ({ request, params }) => {
-  console.log("register action triggerd");
   const url = "/api/v1/users/register";
   const FormData = await request.formData();
   const formObj = {};
   for (const val of FormData.entries()) {
     formObj[val[0]] = val[1];
   }
-  // console.log("data sent to server:", formObj);
+
   const newRequest = new Request(url, {
     method: "POST",
     body: JSON.stringify(formObj),

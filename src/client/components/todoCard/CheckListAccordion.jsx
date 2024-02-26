@@ -4,19 +4,9 @@ import dropdown from "../../assets/dropDownArrow.svg";
 import dropUp from "../../assets/dropUp.svg";
 import fetchUtils from "../../libs/fetchUtils";
 import toast from "react-hot-toast";
-function CheckListAccordion({
-  resetAccordion,
-  collapse,
-  setCollaps,
-  dispatch,
-  list,
-  checklist,
-}) {
-  // console.log("in accordian", list);
-
+function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, list, checklist }) {
   const handleToggleTodoCheck = async (noteId, todoId) => {
     const login = JSON.parse(localStorage.getItem("loginState"));
-    console.log(`check todo noteid: ${noteId} todo id : ${todoId} `);
 
     const notePatch = {
       todoId: todoId,
@@ -42,11 +32,9 @@ function CheckListAccordion({
       toast.error("unable to perform action please try again later");
     }
   };
-  // console.log(collapse);
+
   const acordianStyles = {
-    display: collapse?.find((item) => item._id === list._id)?.acordian
-      ? "flex"
-      : "none",
+    display: collapse?.find((item) => item._id === list._id)?.acordian ? "flex" : "none",
     flexDirection: "column",
     gap: "10px",
     marginTop: "10px",
@@ -59,7 +47,6 @@ function CheckListAccordion({
   function flipAccordian() {
     setCollaps((prevState) => {
       const updatedCollapse = prevState.map((item) => {
-        // console.log("accordian", item);
         if (item._id === list._id) {
           return { ...item, acordian: !item.acordian };
         }
@@ -69,7 +56,6 @@ function CheckListAccordion({
     });
   }
   const handleAccordian = () => {
-    // console.log(list);
     if (!collapse) {
       setCollaps(resetAccordion());
       flipAccordian();
@@ -88,11 +74,7 @@ function CheckListAccordion({
         Checklist ({checklist})
         <img
           alt='dropdown button'
-          src={
-            collapse?.find((item) => item._id === list._id)?.acordian
-              ? dropUp
-              : dropdown
-          }
+          src={collapse?.find((item) => item._id === list._id)?.acordian ? dropUp : dropdown}
         />
       </div>
       <div style={acordianStyles}>

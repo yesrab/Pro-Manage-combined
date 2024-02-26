@@ -18,7 +18,7 @@ export const loader = async ({ request, params, loginState }) => {
 
 function AnalyticsPage() {
   const loaderData = useLoaderData();
-  // console.log(loaderData.analyticsData);
+
   return (
     <div className={styles.Container}>
       <header className={styles.anyliticsHeader}>Analytics</header>

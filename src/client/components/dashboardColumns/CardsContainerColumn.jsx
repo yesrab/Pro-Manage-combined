@@ -12,7 +12,7 @@ function CardsContainerColumn({ shareNote, origin, openModal, dispatch, data }) 
     });
     return acordianState;
   }
-  // console.log(data);
+
   useEffect(() => {
     if (data) {
       const newDataIds = data?.map((item) => item._id);

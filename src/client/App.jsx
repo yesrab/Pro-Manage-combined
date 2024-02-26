@@ -14,7 +14,7 @@ import Settings, { action as settingsAction } from "./pages/SettingsPage/Setting
 import Shared, { loader as sharedCardLoader } from "./pages/sharedPage/Shared";
 function App() {
   const { loginState, dispatch } = useContext(LoginContext);
-  // console.log("context", loginState.login);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>

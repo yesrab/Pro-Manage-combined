@@ -7,20 +7,11 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import fetchUtils from "../../libs/fetchUtils";
 import toast from "react-hot-toast";
 import formatDate from "../../libs/dateFormatter";
-function TodoCard({
-  shareNote,
-  resetAccordian,
-  openModal,
-  collapse,
-  setCollaps,
-  dispatch,
-  list,
-}) {
+function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, dispatch, list }) {
   const getCheckedCount = () => {
     const checkedCount = list.todos.filter((item) => item.check).length;
     return `${checkedCount}/${list.todos.length}`;
   };
-  // console.log("this is form the todocard", list);
 
   const handleChangeSection = (noteId, section) => {
     dispatch({ type: "CHANGE_SECTION", payload: { id: noteId, section } });
@@ -44,11 +35,10 @@ function TodoCard({
   const handleDropdownButton = () => {
     setIsDropDown(false);
   };
-  // console.log(list._id);
 
   const patchSection = async (id, section) => {
     const login = JSON.parse(localStorage.getItem("loginState"));
-    console.log(id);
+
     const url = "/api/v1/notes/getallnotes";
     const notePatch = {
       noteId: id,
@@ -80,7 +70,7 @@ function TodoCard({
 
     return givenDate < currentDate;
   }
-  // console.log(list.dueDate);
+
   return (
     <div className={styles.cardContainer}>
       <header>

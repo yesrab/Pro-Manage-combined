@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 import fetchUtils from "../../libs/fetchUtils";
 import toastPromice from "../../libs/toastPromiseUtil";
 export const action = async ({ request, loginState }) => {
-  console.log("action triggred");
   const FormData = await request.formData();
   const formObj = {};
   for (const val of FormData.entries()) {
@@ -77,10 +76,7 @@ function Settings() {
   useEffect(() => {
     const oldPasswordTrimmed = formData.oldPassword?.trim();
     const passwordTrimmed = formData.password?.trim();
-    if (
-      (oldPasswordTrimmed && !passwordTrimmed) ||
-      (!oldPasswordTrimmed && passwordTrimmed)
-    ) {
+    if ((oldPasswordTrimmed && !passwordTrimmed) || (!oldPasswordTrimmed && passwordTrimmed)) {
       setInitialState((prevState) => ({
         ...prevState,
         oldPassword: "",
@@ -154,12 +150,7 @@ function Settings() {
       <form onSubmit={formSubmiter} className={styles.updateForm}>
         <div className={styles.inputFields}>
           <img src={profile} />
-          <input
-            onChange={handleChange}
-            name='name'
-            placeholder='Name'
-            type='text'
-          />
+          <input onChange={handleChange} name='name' placeholder='Name' type='text' />
         </div>
         {errors.name && <p className={styles.validation}>{errors.name}</p>}
         <div className={styles.inputFields}>
@@ -172,9 +163,7 @@ function Settings() {
           />
           <img onClick={() => toggleVisiblity("OldPassword")} src={eye} />
         </div>
-        {errors.oldPassword && (
-          <p className={styles.validation}>{errors.oldPassword}</p>
-        )}
+        {errors.oldPassword && <p className={styles.validation}>{errors.oldPassword}</p>}
         <div className={styles.inputFields}>
           <img src={padlock} />
           <input
@@ -185,9 +174,7 @@ function Settings() {
           />
           <img onClick={() => toggleVisiblity("password")} src={eye} />
         </div>
-        {errors.password && (
-          <p className={styles.validation}>{errors.password}</p>
-        )}
+        {errors.password && <p className={styles.validation}>{errors.password}</p>}
 
         <button>Update</button>
       </form>

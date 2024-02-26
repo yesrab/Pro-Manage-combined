@@ -18,7 +18,7 @@ export const loader = async ({ params, request }) => {
 };
 function Shared() {
   const { responce } = useLoaderData();
-  // console.log(responce);
+
   useEffect(() => {
     async function checkData() {
       const data = await responce;

@@ -7,7 +7,7 @@ function SharedCard({ data }) {
     const checkedCount = data.card.todos.filter((item) => item.check).length;
     return `${checkedCount}/${data.card.todos.length}`;
   };
-  // console.log(data.card.dueDate);
+
   return (
     <div className={styles.cardContainer}>
       <div className={styles.infoBlock}>
@@ -30,9 +30,7 @@ function SharedCard({ data }) {
       {data.card.dueDate && (
         <p className={styles.dateContainer}>
           Due Date
-          <span className={styles.dateChip}>
-            {formatDate(data.card.dueDate)}
-          </span>
+          <span className={styles.dateChip}>{formatDate(data.card.dueDate)}</span>
         </p>
       )}
     </div>

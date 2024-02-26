@@ -25,7 +25,7 @@ export const loader = async ({ request, params, loginState }) => {
   } else {
     FetchUrl.searchParams.set("timeframe", "This Week");
   }
-  console.log("dashboard loader fired");
+
   const time = new Date().toISOString();
   // const login = JSON.parse(localStorage.getItem("loginState"));
   const newRequest = new Request(FetchUrl.toString(), {
@@ -44,7 +44,6 @@ export const loader = async ({ request, params, loginState }) => {
   return null;
 };
 export const action = async ({ request, params, loginState }) => {
-  console.log("request ", request);
   const card = await request.json();
   const url = "/api/v1/notes/getallnotes";
   const newRequest = new Request(url, {
@@ -55,7 +54,7 @@ export const action = async ({ request, params, loginState }) => {
       "Authorization": `Bearer ${loginState.token}`,
     },
   });
-  console.log("actual data sent:", card);
+
   const responce = await fetchUtils(newRequest);
   toast.promise(toastPromice(responce), {
     loading: "Creating account",
@@ -122,13 +121,9 @@ function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [NoteReference, setNoteReference] = useState(null);
-  // const { logOut, setModalType, modalType, setIsModalOpen, isModalOpen } =
-  //   useOutletContext();
-  // console.log("reducer state", logOut);
+
   useEffect(() => {
     dispatch({ type: "SET_INITIAL_STATE", payload: data });
-
-    console.log("reducer updated");
   }, [data]);
 
   function openModal(noteID, modal) {
@@ -144,8 +139,6 @@ function Dashboard() {
   }
 
   async function deleteNote() {
-    console.log("deleting this note:", NoteReference);
-    // const login = JSON.parse(localStorage.getItem("loginState"));
     const serverURl = "/api/v1/notes/getallnotes";
     const newDeleteRequest = new Request(serverURl, {
       method: "DELETE",
@@ -184,7 +177,7 @@ function Dashboard() {
     if (responce.status === "success") {
       toast("Link Copied");
       const link = `${window.location.origin}/${noteId}`;
-      console.log(link);
+
       navigator.clipboard.writeText(link);
     } else {
       toast.error("error occured please try again later");
