@@ -26,4 +26,17 @@ const changeVisibility = async (req, res) => {
   res.json({ updatedNote, status: "success" });
 };
 
-module.exports = { changeVisibility };
+const publicCards = async (req, res) => {
+  const sharedCard = req.params.sharedCard;
+  console.log(sharedCard);
+  if (!sharedCard) {
+    return res.status(404).json({ msg: "card not found", status: "Error" });
+  }
+  const card = await Note.findOne({ _id: sharedCard, visibility: "public" });
+  if (!card) {
+    return res.status(404).json({ msg: "card not found", status: "Error" });
+  }
+  res.json({ card, status: "success" });
+};
+
+module.exports = { changeVisibility, publicCards };

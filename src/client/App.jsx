@@ -26,6 +26,7 @@ import Loading from "./pages/LoadingPage/Loading";
 import Settings, {
   action as settingsAction,
 } from "./pages/SettingsPage/Settings";
+import Shared, { loader as sharedCardLoader } from "./pages/sharedPage/Shared";
 function App() {
   const { loginState, dispatch } = useContext(LoginContext);
   // console.log("context", loginState.login);
@@ -64,6 +65,11 @@ function App() {
                 return redirect("/login", { replace: true });
               }
               return null;
+            }}
+            loader={() => {
+              return !loginState.login
+                ? redirect("/login", { replace: true })
+                : null;
             }}
             path='/settings'
             element={<Settings />}
@@ -105,7 +111,11 @@ function App() {
           action={registerAction}
           element={<Register />}
         />
-        <Route path='/:sharedCard' element={<h1>shared cards</h1>} />
+        <Route
+          loader={sharedCardLoader}
+          path='/:sharedCard'
+          element={<Shared />}
+        />
       </Route>
     )
   );

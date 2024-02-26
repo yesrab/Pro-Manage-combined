@@ -80,7 +80,7 @@ function TodoCard({
 
     return givenDate < currentDate;
   }
-
+  // console.log(list.dueDate);
   return (
     <div className={styles.cardContainer}>
       <header>

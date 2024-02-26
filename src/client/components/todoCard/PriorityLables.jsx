@@ -16,10 +16,13 @@ function Priority({ tag }) {
     color: "#707070",
     fontSize: "12pxs",
   };
-
+  const dotStyle = {
+    fontSize: "2.5em",
+  };
   return (
     <span style={contaierStyles}>
-      &#x2022;<p style={tagStyle}>{tag + " PRIORITY"}</p>
+      <span style={dotStyle}>&#x2022;</span>{" "}
+      <p style={tagStyle}>{tag + " PRIORITY"}</p>
     </span>
   );
 }

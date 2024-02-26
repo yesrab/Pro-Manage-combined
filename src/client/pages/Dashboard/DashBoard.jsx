@@ -13,7 +13,12 @@ import AddCardModal from "../../components/modals/AddCardModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
 import LoginContext from "../../context/LoginContext.js";
 import fetchUtils from "../../libs/fetchUtils.js";
-import { useLoaderData, Await, useOutletContext } from "react-router-dom";
+import {
+  useLoaderData,
+  Await,
+  useOutletContext,
+  redirect,
+} from "react-router-dom";
 import toast from "react-hot-toast";
 import { ColumnLoader } from "../LoadingPage/Loading.jsx";
 import toastPromice from "../../libs/toastPromiseUtil.js";
