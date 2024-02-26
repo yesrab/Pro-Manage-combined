@@ -7,6 +7,7 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import fetchUtils from "../../libs/fetchUtils";
 import toast from "react-hot-toast";
 import formatDate from "../../libs/dateFormatter";
+import toastPromice from "../../libs/toastPromiseUtil";
 function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, dispatch, list }) {
   const getCheckedCount = () => {
     const checkedCount = list.todos.filter((item) => item.check).length;
@@ -54,11 +55,13 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
     });
 
     const responce = await fetchUtils(newPatchRequest);
+    toast.promise(toastPromice(responce), {
+      loading: "syncing details",
+      success: <b>{`Moved to ${section}`}</b>,
+      error: <b>Unable to move please try again later</b>,
+    });
     if (responce.status === "success") {
-      toast.success(`Moved to ${section}`);
       handleChangeSection(id, section);
-    } else {
-      toast.error("Unable to move please try again later");
     }
   };
 
@@ -128,11 +131,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
         {list.dueDate ? (
           <button
             className={` ${styles.date}  ${
-              list.section === "done"
-                ? styles.doneColor
-                : isDeadLine(list.dueDate)
-                ? styles.deadLineDate
-                : ""
+              list.section === "done" ? styles.doneColor : isDeadLine(list.dueDate) ? styles.deadLineDate : ""
             }  `}>
             {formatDate(list.dueDate)}
           </button>

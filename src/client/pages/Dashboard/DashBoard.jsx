@@ -149,11 +149,13 @@ function Dashboard() {
       },
     });
     const responce = await fetchUtils(newDeleteRequest);
+    toast.promise(toastPromice(responce), {
+      loading: "syncing details",
+      success: <b>Deleted card</b>,
+      error: <b>Unable to delete please try again later</b>,
+    });
     if (responce.status === "success") {
-      toast.success("Deleted card");
       dispatch({ type: "DELETE_NOTE", payload: NoteReference });
-    } else {
-      toast.error("Unable to delete please try again later");
     }
     setIsModalOpen(false);
     setNoteReference(null);
