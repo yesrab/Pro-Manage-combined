@@ -1,31 +1,16 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-  redirect,
-} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, redirect } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Login, { action as loginAction } from "./pages/AccountPages/Login";
-import Register, {
-  action as registerAction,
-} from "./pages/AccountPages/Register";
-import DashBoard, {
-  loader as dashBoardLoader,
-  action as dashBoardAction,
-} from "./pages/Dashboard/DashBoard";
+import Register, { action as registerAction } from "./pages/AccountPages/Register";
+import DashBoard, { loader as dashBoardLoader, action as dashBoardAction } from "./pages/Dashboard/DashBoard";
 import HomePageLayout from "./pages/Layout/HomePageLayout";
 
 import LoginContext from "./context/LoginContext";
 import { useContext } from "react";
-import AnalyticsPage, {
-  loader as anylyticsLoader,
-} from "./pages/AnalyticsPages/AnalyticsPage";
+import AnalyticsPage, { loader as anylyticsLoader } from "./pages/AnalyticsPages/AnalyticsPage";
 import toastPromice from "./libs/toastPromiseUtil";
 import Loading from "./pages/LoadingPage/Loading";
-import Settings, {
-  action as settingsAction,
-} from "./pages/SettingsPage/Settings";
+import Settings, { action as settingsAction } from "./pages/SettingsPage/Settings";
 import Shared, { loader as sharedCardLoader } from "./pages/sharedPage/Shared";
 function App() {
   const { loginState, dispatch } = useContext(LoginContext);
@@ -35,9 +20,7 @@ function App() {
       <Route>
         <Route
           loader={() => {
-            return !loginState.login
-              ? redirect("/login", { replace: true })
-              : null;
+            return !loginState.login ? redirect("/login", { replace: true }) : null;
           }}
           element={<HomePageLayout />}>
           <Route
@@ -67,9 +50,7 @@ function App() {
               return null;
             }}
             loader={() => {
-              return !loginState.login
-                ? redirect("/login", { replace: true })
-                : null;
+              return !loginState.login ? redirect("/login", { replace: true }) : null;
             }}
             path='/settings'
             element={<Settings />}
@@ -106,16 +87,8 @@ function App() {
           }}
           element={<Login />}
         />
-        <Route
-          path='/register'
-          action={registerAction}
-          element={<Register />}
-        />
-        <Route
-          loader={sharedCardLoader}
-          path='/:sharedCard'
-          element={<Shared />}
-        />
+        <Route path='/register' action={registerAction} element={<Register />} />
+        <Route loader={sharedCardLoader} path='/:sharedCard' element={<Shared />} />
       </Route>
     )
   );

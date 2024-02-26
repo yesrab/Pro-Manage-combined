@@ -4,13 +4,7 @@ import CollumnHeadder from "./CollumnHeadder";
 import AddCardModal from "../modals/AddCardModal";
 import ModelWrapper from "../modals/ModalWrapper";
 import TodoCard from "../todoCard/TodoCard";
-function CardsContainerColumn({
-  shareNote,
-  origin,
-  openModal,
-  dispatch,
-  data,
-}) {
+function CardsContainerColumn({ shareNote, origin, openModal, dispatch, data }) {
   const [collapse, setCollaps] = useState(populateAccordiastate());
   function populateAccordiastate() {
     const acordianState = data?.map((item) => {
@@ -23,9 +17,7 @@ function CardsContainerColumn({
     if (data) {
       const newDataIds = data?.map((item) => item._id);
       const existingDataIds = collapse?.map((item) => item._id);
-      const newDataItems = data?.filter(
-        (item) => !existingDataIds?.includes(item._id)
-      );
+      const newDataItems = data?.filter((item) => !existingDataIds?.includes(item._id));
       const newAccordionState = newDataItems?.map((item) => ({
         _id: item._id,
         accordion: false,
@@ -45,11 +37,7 @@ function CardsContainerColumn({
 
   return (
     <div className={styles.columnContainer}>
-      <CollumnHeadder
-        closeAccordian={closeAccordian}
-        toggleModal={openModal}
-        origin={origin}
-      />
+      <CollumnHeadder closeAccordian={closeAccordian} toggleModal={openModal} origin={origin} />
       <div className={styles.cardsContainer}>
         {data && data.length !== 0
           ? data

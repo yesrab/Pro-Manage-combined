@@ -1,10 +1,4 @@
-import React, {
-  useReducer,
-  useState,
-  useContext,
-  useEffect,
-  Suspense,
-} from "react";
+import React, { useReducer, useState, useContext, useEffect, Suspense } from "react";
 import DashBoardHeader from "../../components/Headers/DashBoardHeader";
 import styles from "./DashBoardStyles.module.css";
 import CardsContainerColumn from "../../components/dashboardColumns/CardsContainerColumn";
@@ -13,17 +7,15 @@ import AddCardModal from "../../components/modals/AddCardModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
 import LoginContext from "../../context/LoginContext.js";
 import fetchUtils from "../../libs/fetchUtils.js";
-import {
-  useLoaderData,
-  Await,
-  useOutletContext,
-  redirect,
-} from "react-router-dom";
+import { useLoaderData, Await, useOutletContext, redirect } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ColumnLoader } from "../LoadingPage/Loading.jsx";
 import toastPromice from "../../libs/toastPromiseUtil.js";
 const login = JSON.parse(localStorage.getItem("loginState"));
 export const loader = async ({ request, params, loginState }) => {
+  if (!loginState.login) {
+    return redirect("/login", { replace: true });
+  }
   const serverURl = "/api/v1/notes/getallnotes";
   const FetchUrl = new URL(serverURl, window.location.origin);
   const url = new URL(request.url);

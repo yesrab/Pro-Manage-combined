@@ -11,6 +11,7 @@ export const loader = async ({ request, params, loginState }) => {
       Authorization: `Bearer ${loginState.token}`,
     },
   });
+
   const analyticsPromise = fetchUtils(analyticsRequest);
   return defer({ analyticsData: analyticsPromise });
 };
