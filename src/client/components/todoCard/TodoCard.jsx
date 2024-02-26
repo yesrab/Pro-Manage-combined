@@ -79,6 +79,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
       <header>
         <Priority tag={list.Priority} />
         <img
+          aria-label='Open menu'
           onClick={() => {
             setIsDropDown(true);
           }}
@@ -90,6 +91,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
         <ul ref={menuRef} className={styles.dropdown}>
           <li>
             <button
+              aria-label='Edit button'
               onClick={() => {
                 handleDropdownButton();
                 openModal(list._id, "addCard");
@@ -99,6 +101,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
           </li>
           <li>
             <button
+              aria-label='Share button'
               onClick={() => {
                 handleDropdownButton();
                 shareNote(list._id);
@@ -108,6 +111,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
           </li>
           <li>
             <button
+              aria-label='delete button'
               onClick={() => {
                 handleDropdownButton();
                 openModal(list._id, "delete");
@@ -140,6 +144,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
         <div>
           {list.section !== "backlog" && (
             <button
+              aria-label='Move to backlog'
               onClick={() => {
                 patchSection(list._id, "backlog");
               }}
@@ -149,6 +154,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
           )}
           {list.section !== "inProgress" && (
             <button
+              aria-label='move to in progress'
               onClick={() => {
                 patchSection(list._id, "inProgress");
               }}
@@ -158,6 +164,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
           )}
           {list.section !== "todo" && (
             <button
+              aria-label='Move to to-do'
               onClick={() => {
                 patchSection(list._id, "todo");
               }}
@@ -167,6 +174,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
           )}
           {list.section !== "done" && (
             <button
+              aria-label='move to done'
               onClick={() => {
                 patchSection(list._id, "done");
               }}

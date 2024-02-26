@@ -1,0 +1,24 @@
+.errorContainer {
+  font-family: "Poppins";
+  background-color: #4391ed1a;
+  height: 100vh;
+  width: 100vw;
+  padding: 4%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.errorContainer > h2 {
+  font-weight: 100;
+  font-size: 5em;
+}
+
+.errorContainer > a {
+  margin-top: 10em;
+  text-decoration: none;
+  border: 2px solid var(--foreground);
+  padding: 1%;
+  border-radius: 1em;
+  color: black;
+}

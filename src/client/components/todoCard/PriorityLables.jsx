@@ -1,8 +1,7 @@
 import React from "react";
 
 function Priority({ tag }) {
-  const color =
-    tag === "HIGH" ? "#FF2473" : tag === "LOW" ? "#63C05B" : "#18B0FF";
+  const color = tag === "HIGH" ? "#FF2473" : tag === "LOW" ? "#63C05B" : "#18B0FF";
 
   const contaierStyles = {
     display: "flex",
@@ -21,7 +20,7 @@ function Priority({ tag }) {
   };
   return (
     <span style={contaierStyles}>
-      <span style={dotStyle}>&#x2022;</span>{" "}
+      <span style={dotStyle}>&#x2022;</span>
       <p style={tagStyle}>{tag + " PRIORITY"}</p>
     </span>
   );

@@ -33,11 +33,7 @@ function DashBoardHeader({ name }) {
       </div>
       <div>
         <h2>Board</h2>
-        <select
-          onChange={handleDropdownChange}
-          className={styles.dropDownMenu}
-          name='filter'
-          id='filter'>
+        <select onChange={handleDropdownChange} className={styles.dropDownMenu} name='filter' id='filter'>
           <option value='This Week'>This Week</option>
           <option value='Today'>Today</option>
           <option value='This Month'>This Month</option>

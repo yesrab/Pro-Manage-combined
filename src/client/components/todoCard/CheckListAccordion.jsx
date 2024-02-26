@@ -38,9 +38,7 @@ function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, li
     flexDirection: "column",
     gap: "10px",
     marginTop: "10px",
-    transform: collapse?.find((item) => item._id === list._id)?.acordian
-      ? "translateY(0)"
-      : "translateY(-100%)",
+    transform: collapse?.find((item) => item._id === list._id)?.acordian ? "translateY(0)" : "translateY(-100%)",
     transition: "transform 0.5s ease-in",
   };
 
@@ -74,6 +72,7 @@ function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, li
         Checklist ({checklist})
         <img
           alt='dropdown button'
+          aria-label='show all tasks'
           src={collapse?.find((item) => item._id === list._id)?.acordian ? dropUp : dropdown}
         />
       </div>

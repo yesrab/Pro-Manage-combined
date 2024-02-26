@@ -12,12 +12,14 @@ import toastPromice from "./libs/toastPromiseUtil";
 import Loading from "./pages/LoadingPage/Loading";
 import Settings, { action as settingsAction } from "./pages/SettingsPage/Settings";
 import Shared, { loader as sharedCardLoader } from "./pages/sharedPage/Shared";
+import ErrorBoundary from "./pages/ErrorPage/Error";
+import ErrorShared from "./pages/ErrorPage/ErrorShared";
 function App() {
   const { loginState, dispatch } = useContext(LoginContext);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route>
+      <Route errorElement={<ErrorBoundary />}>
         <Route
           loader={() => {
             return !loginState.login ? redirect("/login", { replace: true }) : null;
@@ -88,7 +90,7 @@ function App() {
           element={<Login />}
         />
         <Route path='/register' action={registerAction} element={<Register />} />
-        <Route loader={sharedCardLoader} path='/:sharedCard' element={<Shared />} />
+        <Route errorElement={<ErrorShared />} loader={sharedCardLoader} path='/:sharedCard' element={<Shared />} />
       </Route>
     )
   );

@@ -10,21 +10,16 @@ export const loader = async ({ params, request }) => {
   const getCard = new Request(URl, {
     method: "GET",
   });
-  const responcePromise = fetchUtils(getCard);
-
+  const responcePromise = await fetchUtils(getCard);
+  if (!(responcePromise.status === "success")) {
+    throw new Error("Card not found");
+  }
   return defer({
     responce: responcePromise,
   });
 };
 function Shared() {
   const { responce } = useLoaderData();
-
-  useEffect(() => {
-    async function checkData() {
-      const data = await responce;
-    }
-    checkData();
-  }, []);
   return (
     <div className={styles.container}>
       <header className={styles.head}>

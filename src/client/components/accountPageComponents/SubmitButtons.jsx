@@ -7,14 +7,10 @@ function SubmitButtons() {
 
   return (
     <div className={componentStyles.submitContainer}>
-      <button type='submit'>
+      <button aria-label='submit button' type='submit'>
         {location.pathname === "/login" ? "Login" : "Register"}
       </button>
-      <p>
-        {location.pathname === "/login"
-          ? "Have no account yet?"
-          : "Have an account ?"}
-      </p>
+      <p>{location.pathname === "/login" ? "Have no account yet?" : "Have an account ?"}</p>
       <Link to={location.pathname === "/login" ? "/register" : "/login"}>
         {location.pathname === "/login" ? "Register" : "Login"}
       </Link>

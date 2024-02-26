@@ -46,15 +46,11 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
     setTodoList(filteredList);
   };
   const handleInputChange = (id, newValue) => {
-    const updatedTodoList = todoList.map((item) =>
-      item.id === id ? { ...item, value: newValue } : item
-    );
+    const updatedTodoList = todoList.map((item) => (item.id === id ? { ...item, value: newValue } : item));
     setTodoList(updatedTodoList);
   };
   const handleCheckboxChange = (id) => {
-    const updatedTodoList = todoList.map((item) =>
-      item.id === id ? { ...item, check: !item.check } : item
-    );
+    const updatedTodoList = todoList.map((item) => (item.id === id ? { ...item, check: !item.check } : item));
     setTodoList(updatedTodoList);
   };
   const getCheckedCount = () => {
@@ -255,9 +251,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
               ? todoList?.map((item, key) => {
                   return (
                     <span key={item.id}>
-                      {errors[`note:${item.id}`] && (
-                        <span className={styles.error}>{errors[`note:${item.id}`]}</span>
-                      )}
+                      {errors[`note:${item.id}`] && <span className={styles.error}>{errors[`note:${item.id}`]}</span>}
                       <div className={`${styles.inputBoxes} ${styles.inputBoxContainer} `}>
                         <input
                           name={`check:${item.id}`}
@@ -300,7 +294,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
 
           {showPicker && (
             <>
-              <div onClick={openDatePicker} className={styles.modalDateOverlay} />
+              <div aria-label='Open date picker' onClick={openDatePicker} className={styles.modalDateOverlay} />
               <DatePicker date={date} setDate={setDate} />
             </>
           )}
@@ -315,6 +309,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
           />
           <div className={styles.footerActionButton}>
             <button
+              aria-label='Cancle button'
               onClick={() => {
                 toggleModal();
                 setModalType(null);
@@ -323,7 +318,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
               type='button'>
               cancle
             </button>
-            <button className={` ${styles.footerButtons} ${styles.footerSave} `} type='submit'>
+            <button aria-label='Save button' className={` ${styles.footerButtons} ${styles.footerSave} `} type='submit'>
               Save
             </button>
           </div>

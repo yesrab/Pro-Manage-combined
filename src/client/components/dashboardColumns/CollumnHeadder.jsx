@@ -17,6 +17,7 @@ function CollumnHeadder({ closeAccordian, origin, toggleModal }) {
           />
         )}
         <img
+          aria-label='Close all'
           onClick={() => {
             closeAccordian();
           }}

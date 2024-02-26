@@ -85,30 +85,16 @@ function RegisterForm() {
         <div className={componentStyles.formElements}>
           <div className={componentStyles.inputContainer}>
             <img src={profile} alt='profileIcon' />
-            <input
-              onChange={handleChange}
-              placeholder='Name'
-              name='Name'
-              type='text'
-            />
+            <input onChange={handleChange} placeholder='Name' name='Name' type='text' />
           </div>
-          {errors.Name && (
-            <p className={componentStyles.formErrorMessage}>{errors.Name}</p>
-          )}
+          {errors.Name && <p className={componentStyles.formErrorMessage}>{errors.Name}</p>}
         </div>
         <div className={componentStyles.formElements}>
           <div className={componentStyles.inputContainer}>
             <img src={mail} alt='mailIcon' />
-            <input
-              onChange={handleChange}
-              placeholder='Email'
-              name='Email'
-              type='email'
-            />
+            <input onChange={handleChange} placeholder='Email' name='Email' type='email' />
           </div>
-          {errors.Email && (
-            <p className={componentStyles.formErrorMessage}>{errors.Email}</p>
-          )}
+          {errors.Email && <p className={componentStyles.formErrorMessage}>{errors.Email}</p>}
         </div>
         <div className={componentStyles.formElements}>
           <div className={componentStyles.inputContainer}>
@@ -121,15 +107,12 @@ function RegisterForm() {
             />
             <img
               src={eye}
+              aria-label='view confirm password'
               onClick={() => toggleVisiblity("confirmPassword")}
               alt='ConfirmPasswordVisiblity'
             />
           </div>
-          {errors.confirmPassword && (
-            <p className={componentStyles.formErrorMessage}>
-              {errors.confirmPassword}
-            </p>
-          )}
+          {errors.confirmPassword && <p className={componentStyles.formErrorMessage}>{errors.confirmPassword}</p>}
         </div>
         <div className={componentStyles.formElements}>
           <div className={componentStyles.inputContainer}>
@@ -142,15 +125,12 @@ function RegisterForm() {
             />
             <img
               src={eye}
+              aria-label='view password'
               onClick={() => toggleVisiblity("password")}
               alt='passwordVisiblity'
             />
           </div>
-          {errors.Password && (
-            <p className={componentStyles.formErrorMessage}>
-              {errors.Password}
-            </p>
-          )}
+          {errors.Password && <p className={componentStyles.formErrorMessage}>{errors.Password}</p>}
         </div>
 
         <SubmitButtons />
