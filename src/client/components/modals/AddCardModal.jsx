@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Link, useSubmit, useFetcher } from "react-router-dom";
+import { Form, Link, useSubmit, useRevalidator } from "react-router-dom";
 import styles from "./ModalStyles.module.css";
 import deleteticon from "../../assets/DeleteIcon.svg";
 import DatePicker from "./DatePicker";
@@ -36,6 +36,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
   const [validationRules, setValidationRules] = useState(rulesTemplate);
   const [noteToEdit, setNoteToEdit] = useState(null);
   const [formModificaton, setFormModification] = useState(null);
+  let revalidator = useRevalidator();
   const addTodo = () => {
     const newTodoList = [...todoList, { id: nextId, check: false, value: "" }];
     setTodoList(newTodoList);
@@ -178,6 +179,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
           encType: "application/json",
         });
         toggleModal();
+        revalidator.revalidate();
       } else {
         toast.error("Please add atleast one note");
       }

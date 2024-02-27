@@ -7,7 +7,7 @@ import AddCardModal from "../../components/modals/AddCardModal";
 import ConfirmationModal from "../../components/modals/ConfirmationModal";
 import LoginContext from "../../context/LoginContext.js";
 import fetchUtils from "../../libs/fetchUtils.js";
-import { useLoaderData, Await, useOutletContext, redirect, defer } from "react-router-dom";
+import { useLoaderData, Await, redirect, defer } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ColumnLoader } from "../LoadingPage/Loading.jsx";
 import toastPromice from "../../libs/toastPromiseUtil.js";
@@ -36,8 +36,9 @@ export const loader = async ({ request, params, loginState }) => {
       "X-Client-DateTime": time,
     },
   });
-  const data = await fetchUtils(newRequest);
 
+  const data = fetchUtils(newRequest);
+  console.log("loader dashboard");
   if (data) {
     return defer({ data: data });
   }
@@ -123,7 +124,10 @@ function Dashboard() {
   const [NoteReference, setNoteReference] = useState(null);
 
   useEffect(() => {
-    dispatch({ type: "SET_INITIAL_STATE", payload: data });
+    async function setInitial() {
+      dispatch({ type: "SET_INITIAL_STATE", payload: await data });
+    }
+    setInitial();
   }, [data]);
 
   function openModal(noteID, modal) {
