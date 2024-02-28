@@ -72,9 +72,22 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
 
   useEffect(() => {
     if (NoteReference) {
-      const noteIndex = allNotes.data.findIndex((noteObj) => noteObj._id === NoteReference);
-
-      const noteObj = allNotes.data[noteIndex];
+      const { id, section } = NoteReference;
+      const getSectionName = (section) => {
+        switch (section) {
+          case "backlog":
+            return "backlogNotes";
+          case "todo":
+            return "todoNotes";
+          case "inProgress":
+            return "progressNotes";
+          default:
+            return "doneNotes";
+        }
+      };
+      const sectionName = getSectionName(section);
+      const noteIndex = allNotes[sectionName].findIndex((noteObj) => noteObj._id === id);
+      const noteObj = allNotes[sectionName][noteIndex];
       setNoteToEdit(noteObj);
       const localisedTodoArray = noteObj.todos.map((note, index) => {
         return { check: note.check, value: note.value, id: index + 1 };

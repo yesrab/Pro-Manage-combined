@@ -14,8 +14,26 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
     return `${checkedCount}/${list.todos.length}`;
   };
 
-  const handleChangeSection = (noteId, section) => {
-    dispatch({ type: "CHANGE_SECTION", payload: { id: noteId, section } });
+  const handleChangeSection = (noteId, section, currentSection, note) => {
+    const oldSection =
+      currentSection === "backlog"
+        ? "backlogNotes"
+        : currentSection === "todo"
+        ? "todoNotes"
+        : currentSection === "inProgress"
+        ? "progressNotes"
+        : "doneNotes";
+    const newSection =
+      section === "backlog"
+        ? "backlogNotes"
+        : section === "todo"
+        ? "todoNotes"
+        : section === "inProgress"
+        ? "progressNotes"
+        : "doneNotes";
+    const newNote = { ...note };
+    newNote.section = section;
+    dispatch({ type: "CHANGE_SECTION", payload: { id: noteId, newSection, oldSection, note: newNote } });
     setCollaps((prevState) => {
       const updatedCollapse = prevState?.map((item) => {
         if (item._id === list._id) {
@@ -37,9 +55,8 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
     setIsDropDown(false);
   };
 
-  const patchSection = async (id, section) => {
+  const patchSection = async (id, section, currentSection, note) => {
     const login = JSON.parse(localStorage.getItem("loginState"));
-
     const url = "/api/v1/notes/getallnotes";
     const notePatch = {
       noteId: id,
@@ -61,7 +78,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
       error: <b>Unable to move please try again later</b>,
     });
     if (responce.status === "success") {
-      handleChangeSection(id, section);
+      handleChangeSection(id, section, currentSection, note);
     }
   };
 
@@ -73,7 +90,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
 
     return givenDate < currentDate;
   }
-
+  // console.log("list is", list);
   return (
     <div className={styles.cardContainer}>
       <header>
@@ -94,7 +111,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
               aria-label='Edit button'
               onClick={() => {
                 handleDropdownButton();
-                openModal(list._id, "addCard");
+                openModal(list._id, "addCard", list.section);
               }}>
               Edit
             </button>
@@ -114,7 +131,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
               aria-label='delete button'
               onClick={() => {
                 handleDropdownButton();
-                openModal(list._id, "delete");
+                openModal(list._id, "delete", list.section);
               }}
               style={{ color: "#CF3636" }}>
               Delete
@@ -146,7 +163,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
             <button
               aria-label='Move to backlog'
               onClick={() => {
-                patchSection(list._id, "backlog");
+                patchSection(list._id, "backlog", list.section, list);
               }}
               className={styles.footerChips}>
               BACKLOG
@@ -156,7 +173,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
             <button
               aria-label='move to in progress'
               onClick={() => {
-                patchSection(list._id, "inProgress");
+                patchSection(list._id, "inProgress", list.section, list);
               }}
               className={styles.footerChips}>
               PROGRESS
@@ -166,7 +183,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
             <button
               aria-label='Move to to-do'
               onClick={() => {
-                patchSection(list._id, "todo");
+                patchSection(list._id, "todo", list.section, list);
               }}
               className={styles.footerChips}>
               TO-DO
@@ -176,7 +193,7 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
             <button
               aria-label='move to done'
               onClick={() => {
-                patchSection(list._id, "done");
+                patchSection(list._id, "done", list.section, list);
               }}
               className={styles.footerChips}>
               DONE

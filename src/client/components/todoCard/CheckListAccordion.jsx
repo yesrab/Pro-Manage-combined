@@ -5,7 +5,7 @@ import dropUp from "../../assets/dropUp.svg";
 import fetchUtils from "../../libs/fetchUtils";
 import toast from "react-hot-toast";
 function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, list, checklist }) {
-  const handleToggleTodoCheck = async (noteId, todoId) => {
+  const handleToggleTodoCheck = async (noteId, todoId, section) => {
     const login = JSON.parse(localStorage.getItem("loginState"));
 
     const notePatch = {
@@ -26,7 +26,7 @@ function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, li
     if (responce.status === "success") {
       dispatch({
         type: "TOGGLE_TODO_CHECK",
-        payload: { noteId: noteId, todoId: todoId },
+        payload: { noteId: noteId, todoId: todoId, section },
       });
     } else {
       toast.error("unable to perform action please try again later");
@@ -62,6 +62,7 @@ function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, li
       flipAccordian();
     }
   };
+  // console.log("list sec", list.section);
   return (
     <div className={styles.accordionContainer}>
       <div
@@ -83,7 +84,7 @@ function CheckListAccordion({ resetAccordion, collapse, setCollaps, dispatch, li
               <div className={styles.accordionItemsChildren} key={item._id}>
                 <input
                   onChange={() => {
-                    handleToggleTodoCheck(list._id, item._id);
+                    handleToggleTodoCheck(list._id, item._id, list.section);
                   }}
                   checked={item.check}
                   type='checkbox'

@@ -38,7 +38,7 @@ export const loader = async ({ request, params, loginState }) => {
   });
 
   const data = fetchUtils(newRequest);
-  console.log("loader dashboard");
+
   if (data) {
     return defer({ data: data });
   }
@@ -69,53 +69,63 @@ export const action = async ({ request, params, loginState }) => {
 };
 
 const reducer = (state, action) => {
+  const getSectionName = (section) => {
+    switch (section) {
+      case "backlog":
+        return "backlogNotes";
+      case "todo":
+        return "todoNotes";
+      case "inProgress":
+        return "progressNotes";
+      default:
+        return "doneNotes";
+    }
+  };
   switch (action.type) {
     case "SET_INITIAL_STATE":
       return action.payload;
     case "DELETE_NOTE":
+      const { noteId, section } = action.payload;
       return {
         ...state,
-        data: state.data.filter((note) => note._id !== action.payload),
+        [getSectionName(section)]: state[getSectionName(section)].filter((note) => note._id !== noteId),
       };
     case "CHANGE_SECTION":
+      const { oldSection, newSection, note, id } = action.payload;
+      const oldSectionArray = [...state[oldSection]];
+      const updatedOldSection = oldSectionArray.filter((n) => n._id !== note._id);
+      console.log("old section name state", oldSection);
+      console.log("updated old section", updatedOldSection);
       return {
         ...state,
-        data: state.data.map((note) => {
-          if (note._id === action.payload.id) {
-            return {
-              ...note,
-              section: action.payload.section,
-            };
-          }
-          return note;
-        }),
+        [newSection]: [...state[newSection], note],
+        [oldSection]: updatedOldSection,
       };
     case "TOGGLE_TODO_CHECK":
-      return {
-        ...state,
-        data: state.data.map((note) => {
-          if (note._id === action.payload.noteId) {
-            return {
-              ...note,
-              todos: note.todos.map((todo) => {
-                if (todo._id === action.payload.todoId) {
-                  return {
-                    ...todo,
-                    check: !todo.check,
-                  };
-                }
-                return todo;
-              }),
-            };
-          }
-          return note;
-        }),
-      };
+      const toggleNoteArray = [...state[getSectionName(action.payload.section)]];
+      const updatedNoteArray = toggleNoteArray.map((note) => {
+        if (note._id === action.payload.noteId) {
+          return {
+            ...note,
+            todos: note.todos.map((task) => {
+              if (task._id === action.payload.todoId) {
+                return {
+                  ...task,
+                  check: !task.check,
+                };
+              }
+              return task;
+            }),
+          };
+        }
+        return note;
+      });
+      const newState = { ...state, [getSectionName(action.payload.section)]: [...updatedNoteArray] };
+      return newState;
     default:
       return state;
   }
 };
-
 function Dashboard() {
   const { data } = useLoaderData();
   const [allNotes, dispatch] = useReducer(reducer, {});
@@ -130,8 +140,12 @@ function Dashboard() {
     setInitial();
   }, [data]);
 
-  function openModal(noteID, modal) {
-    setNoteReference(noteID);
+  function openModal(noteID, modal, section) {
+    if (noteID && section) {
+      setNoteReference({ id: noteID, section });
+    } else {
+      setNoteReference(null);
+    }
     setIsModalOpen(true);
     setModalType(modal);
   }
@@ -146,7 +160,7 @@ function Dashboard() {
     const serverURl = "/api/v1/notes/getallnotes";
     const newDeleteRequest = new Request(serverURl, {
       method: "DELETE",
-      body: JSON.stringify({ noteId: NoteReference }),
+      body: JSON.stringify({ noteId: NoteReference.id }),
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${login.token}`,
@@ -159,7 +173,7 @@ function Dashboard() {
       error: <b>Unable to delete please try again later</b>,
     });
     if (responce.status === "success") {
-      dispatch({ type: "DELETE_NOTE", payload: NoteReference });
+      dispatch({ type: "DELETE_NOTE", payload: { noteId: NoteReference.id, section: NoteReference.section } });
     }
     setIsModalOpen(false);
     setNoteReference(null);
@@ -183,12 +197,12 @@ function Dashboard() {
     if (responce.status === "success") {
       toast("Link Copied");
       const link = `${window.location.origin}/${noteId}`;
-
       navigator.clipboard.writeText(link);
     } else {
       toast.error("error occured please try again later");
     }
   };
+  // console.log("all notes", allNotes);
   const allColumns = ["Backlog", "To Do", "In progress", "Done"];
   return (
     <div className={styles.dashboardContainer}>
@@ -224,7 +238,15 @@ function Dashboard() {
                     openModal={openModal}
                     setModalType={setModalType}
                     dispatch={dispatch}
-                    data={allNotes?.data}
+                    data={
+                      allNotes && item === "To Do"
+                        ? allNotes.todoNotes
+                        : item === "Backlog"
+                        ? allNotes.backlogNotes
+                        : item === "In progress"
+                        ? allNotes.progressNotes
+                        : allNotes.doneNotes
+                    }
                   />
                 )}
               </Await>

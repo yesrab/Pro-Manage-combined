@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ColumnsStyles.module.css";
 import CollumnHeadder from "./CollumnHeadder";
-import AddCardModal from "../modals/AddCardModal";
-import ModelWrapper from "../modals/ModalWrapper";
 import TodoCard from "../todoCard/TodoCard";
 function CardsContainerColumn({ shareNote, origin, openModal, dispatch, data }) {
   const [collapse, setCollaps] = useState(populateAccordiastate());
@@ -40,31 +38,18 @@ function CardsContainerColumn({ shareNote, origin, openModal, dispatch, data }) 
       <CollumnHeadder closeAccordian={closeAccordian} toggleModal={openModal} origin={origin} />
       <div className={styles.cardsContainer}>
         {data && data.length !== 0
-          ? data
-              .filter(
-                (item) =>
-                  item.section ===
-                  (origin === "To Do"
-                    ? "todo"
-                    : origin === "Backlog"
-                    ? "backlog"
-                    : origin === "In progress"
-                    ? "inProgress"
-                    : "done")
-              )
-              .sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt))
-              .map((item) => (
-                <TodoCard
-                  shareNote={shareNote}
-                  resetAccordian={populateAccordiastate}
-                  openModal={openModal}
-                  collapse={collapse}
-                  setCollaps={setCollaps}
-                  dispatch={dispatch}
-                  list={item}
-                  key={item._id}
-                />
-              ))
+          ? data.map((item) => (
+              <TodoCard
+                shareNote={shareNote}
+                resetAccordian={populateAccordiastate}
+                openModal={openModal}
+                collapse={collapse}
+                setCollaps={setCollaps}
+                dispatch={dispatch}
+                list={item}
+                key={item._id}
+              />
+            ))
           : null}
       </div>
     </div>

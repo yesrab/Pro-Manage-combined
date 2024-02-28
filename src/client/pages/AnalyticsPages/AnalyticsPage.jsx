@@ -5,10 +5,12 @@ import { Await, defer, useLoaderData } from "react-router-dom";
 import Loading from "../LoadingPage/Loading";
 export const loader = async ({ request, params, loginState }) => {
   const url = "/api/v1/notes/analytics";
+  const time = new Date().toISOString();
   const analyticsRequest = new Request(url, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${loginState.token}`,
+      "Authorization": `Bearer ${loginState.token}`,
+      "X-Client-DateTime": time,
     },
   });
 
@@ -33,27 +35,27 @@ function AnalyticsPage() {
                       <td className={styles.name}>
                         <span>&bull;</span> Backlog Tasks
                       </td>
-                      <td>{data.anyliticsData.backlogTask || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.backlog || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span> To-do Tasks
                       </td>
-                      <td>{data.anyliticsData.todoTask || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.todo || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         In-Progress Tasks
                       </td>
-                      <td>{data.anyliticsData.inProgressTask || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.inProgress || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         Completed Tasks
                       </td>
-                      <td>{data.anyliticsData.totalCheckedTodos || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.done || "0"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -63,27 +65,27 @@ function AnalyticsPage() {
                       <td className={styles.name}>
                         <span>&bull;</span> Low Priority
                       </td>
-                      <td>{data.anyliticsData.lowPriority || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.LOW || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span> Moderate Priority
                       </td>
-                      <td>{data.anyliticsData.moderatePriority || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.MODERATE || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         High Priority
                       </td>
-                      <td>{data.anyliticsData.highPriority || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.HIGH || "0"}</td>
                     </tr>
                     <tr>
                       <td className={styles.name}>
                         <span>&bull;</span>
                         Due Date Tasks
                       </td>
-                      <td>{data.anyliticsData.totalTodosWithDueDate || "0"}</td>
+                      <td>{data.anyliticsDataPerCard.dueDateCardCount || "0"}</td>
                     </tr>
                   </tbody>
                 </table>
