@@ -26,9 +26,9 @@ const errorHandler = (err, req, res, next) => {
       return accountError(err, req, res);
     }
   }
-  if (err instanceof mongoose.Error.ObjectParameterError) {
-    return res.status(400).json({ msg: "Invalid input object format", status: "Error" });
-  }
+  // if (err instanceof mongoose.Error.ObjectParameterError) {
+  //   return res.status(400).json({ msg: "Invalid input object format", status: "Error" });
+  // }
   if (err instanceof mongoose.Error.CastError) {
     return res.status(400).json({ msg: "Invalid id cast", status: "Error" });
   }
