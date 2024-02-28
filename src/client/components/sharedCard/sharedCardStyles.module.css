@@ -75,13 +75,16 @@
   .cardContainer {
     width: 95%;
     min-height: 80%;
-    max-height: 90dvh;
+    max-height: 90svh;
   }
   .taskItem > input {
     width: 5%;
   }
   .taskList {
-    max-height: 80dvh;
+    max-height: 80svh;
+  }
+  .dateChip {
+    margin-left: 5%;
   }
 }
 @media only screen and (min-height: 721px) {
