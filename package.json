@@ -1,9 +1,11 @@
 {
-  "name": "trello-frontend",
+  "name": "promanage",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "nodemon src/server/server.js",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -35,3 +37,4 @@
     "vite": "^5.1.0"
   }
 }
+
