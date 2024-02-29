@@ -27,7 +27,6 @@ export const loader = async ({ request, params, loginState }) => {
   }
 
   const time = new Date().toISOString();
-  // const login = JSON.parse(localStorage.getItem("loginState"));
   const newRequest = new Request(FetchUrl.toString(), {
     method: "GET",
     url: url,
@@ -55,16 +54,12 @@ export const action = async ({ request, params, loginState }) => {
       "Authorization": `Bearer ${loginState.token}`,
     },
   });
-
   const responce = await fetchUtils(newRequest);
   toast.promise(toastPromice(responce), {
     loading: "Creating account",
     success: <b>Added</b>,
     error: <b>some Error occured Please try again later</b>,
   });
-  // if (responce.status === "success") {
-  //   return redirect(".", { replace: true });
-  // }
   return null;
 };
 
@@ -94,8 +89,6 @@ const reducer = (state, action) => {
       const { oldSection, newSection, note, id } = action.payload;
       const oldSectionArray = [...state[oldSection]];
       const updatedOldSection = oldSectionArray.filter((n) => n._id !== note._id);
-      console.log("old section name state", oldSection);
-      console.log("updated old section", updatedOldSection);
       return {
         ...state,
         [newSection]: [...state[newSection], note],

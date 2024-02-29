@@ -6,37 +6,19 @@ import DatePicker from "./DatePicker";
 import useValidator from "../../hooks/useValidator";
 import toast from "react-hot-toast";
 function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
-  const formStateTemplate = {
-    title: "",
-    Priority: "",
-    dueDate: "",
-  };
-  const rulesTemplate = {
-    title: [
-      {
-        validator: (value) => !!value.trim(),
-        condition: true,
-        message: "Title is required",
-      },
-    ],
-    Priority: [
-      {
-        validator: (value) => value === "HIGH" || value === "MODERATE" || value === "LOW",
-        condition: true,
-        message: "Please select a Priority",
-      },
-    ],
-    dueDate: [],
-  };
   const [todoList, setTodoList] = useState([]);
   const [nextId, setNextId] = useState(1);
   const [date, setDate] = useState(undefined);
   const [showPicker, setShowPicker] = useState(false);
-  const [initialFormState, setInitialFormState] = useState(formStateTemplate);
-  const [validationRules, setValidationRules] = useState(rulesTemplate);
   const [noteToEdit, setNoteToEdit] = useState(null);
-  const [formModificaton, setFormModification] = useState(null);
+  const submit = useSubmit();
   let revalidator = useRevalidator();
+  /**
+   * Renders a modal for adding a new card/note.
+   * Allows user to enter title, priority, and due date.
+   * Uses React hooks for state management and validation.
+   */
+
   const addTodo = () => {
     const newTodoList = [...todoList, { id: nextId, check: false, value: "" }];
     setTodoList(newTodoList);
@@ -62,14 +44,6 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
     setShowPicker(!showPicker);
   };
 
-  const submit = useSubmit();
-  const { formData, errors, handleChange, handleSubmit } = useValidator(
-    initialFormState,
-    validationRules,
-    submit,
-    "POST"
-  );
-
   useEffect(() => {
     if (NoteReference) {
       const { id, section } = NoteReference;
@@ -94,60 +68,12 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
       });
       setTodoList(localisedTodoArray);
       setNextId(localisedTodoArray.length + 1);
-
       setDate(noteObj?.dueDate !== null ? new Date(noteObj.dueDate) : undefined);
-
-      const formEarlyExit = JSON.parse(JSON.stringify(noteObj));
-      formEarlyExit.todos = localisedTodoArray;
-      delete formEarlyExit._id;
-      delete formEarlyExit.createdBy;
-      delete formEarlyExit.createdAt;
-      delete formEarlyExit.updatedAt;
-      delete formEarlyExit.__v;
-      formEarlyExit["noteId"] = noteObj._id;
-      formEarlyExit.dueDate = noteObj.dueDate || "";
-      formEarlyExit.todos = noteObj.todos.map((note, index) => {
-        return { note: index + 1, check: note.check, value: note.value };
-      });
-      setFormModification(formEarlyExit);
     }
   }, []);
 
-  useEffect(() => {
-    function makeFormValidatorObj() {
-      const templateCopy = { ...formStateTemplate };
-      todoList.map((item) => {
-        templateCopy[`note:${item.id}`] = item.value;
-      });
-      setInitialFormState(templateCopy);
-    }
-    makeFormValidatorObj();
-    function makeFormValidatorFunctions() {
-      const template = { ...rulesTemplate };
-      const noteRule = [
-        {
-          validator: (value) => {
-            if (value) {
-              return !!value.trim();
-            } else {
-              return false;
-            }
-          },
-          condition: true,
-          message: "Todo is required",
-        },
-      ];
-      todoList.map((item) => {
-        template[`note:${item.id}`] = noteRule;
-      });
-      setValidationRules(template);
-    }
-    makeFormValidatorFunctions();
-  }, [todoList]);
-
   const submiter = (e) => {
-    const canSubmit = handleSubmit(e);
-
+    const canSubmit = true;
     const formData = new FormData(e.target);
     formData.set("section", noteToEdit?.section || "todo");
     formData.set("visibility", noteToEdit?.visibility || "private");
@@ -155,7 +81,9 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
     for (const val of formData.entries()) {
       formObj[val[0]] = val[1];
     }
+    console.log(formObj);
     const hasNoteKey = Object.keys(formObj).some((key) => key.startsWith("note"));
+    console.log(hasNoteKey);
     const todos = [];
     formData.forEach((value, key) => {
       if (key.startsWith("note")) {
@@ -178,21 +106,20 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
       visibility: formData.get("visibility") || "private",
       todos: todos,
     };
-
-    const isFormModified = JSON.stringify(formattedData) == JSON.stringify(formModificaton);
-
-    if (isFormModified) {
-      toggleModal();
-      return;
-    }
+    console.log();
+    console.log(formattedData);
     if (canSubmit) {
       if (hasNoteKey) {
-        submit(formattedData, {
-          method: noteToEdit ? "PUT" : "POST",
-          encType: "application/json",
-        });
-        toggleModal();
-        revalidator.revalidate();
+        if (formData.get("Priority")) {
+          submit(formattedData, {
+            method: noteToEdit ? "PUT" : "POST",
+            encType: "application/json",
+          });
+          revalidator.revalidate();
+          toggleModal();
+        } else {
+          toast.error("Please select a priority");
+        }
       } else {
         toast.error("Please add atleast one note");
       }
@@ -201,24 +128,22 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
 
   return (
     <div className={styles.addCardContainer}>
-      <Form onSubmit={submiter} method='POST'>
+      <form onSubmit={submiter}>
         <label>
           Title <span className={styles.red}>*</span>
-          {errors.title && <span className={styles.error}>{errors.title}</span>}
           <br />
           <input
             placeholder='Enter Task Title'
             className={styles.inputBoxes}
+            required
             name='title'
             defaultValue={noteToEdit?.title}
             type='text'
-            onChange={handleChange}
           />
         </label>
         <div className={styles.PriorityContainer}>
           <label htmlFor='Priority' className={`${styles.PriorityLable} ${styles.CheckBoxLables} `}>
             Select Priority <span className={styles.red}>*</span>
-            {errors.Priority && <span className={styles.error}>{errors.Priority}</span>}
           </label>
           <input
             className={`${styles.Priority} ${styles.highRadio} `}
@@ -226,7 +151,6 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
             id='high'
             name='Priority'
             value='HIGH'
-            onChange={handleChange}
             defaultChecked={noteToEdit && noteToEdit.Priority === "HIGH"}
           />
           <label className={`${styles.PriorityLable} ${styles.high}`} htmlFor='high'>
@@ -238,7 +162,6 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
             id='medium'
             name='Priority'
             value='MODERATE'
-            onChange={handleChange}
             defaultChecked={noteToEdit && noteToEdit.Priority === "MODERATE"}
           />
           <label className={`${styles.PriorityLable} ${styles.medium}`} htmlFor='medium'>
@@ -250,10 +173,9 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
             id='low'
             name='Priority'
             value='LOW'
-            onChange={handleChange}
             defaultChecked={noteToEdit && noteToEdit.Priority === "LOW"}
           />
-          <label className={`  ${styles.PriorityLable} ${styles.low} `} htmlFor='low'>
+          <label className={`${styles.PriorityLable} ${styles.low}`} htmlFor='low'>
             <span className={styles.green}>&#x2022;</span> LOW PRIORITY
           </label>
         </div>
@@ -266,7 +188,6 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
               ? todoList?.map((item, key) => {
                   return (
                     <span key={item.id}>
-                      {errors[`note:${item.id}`] && <span className={styles.error}>{errors[`note:${item.id}`]}</span>}
                       <div className={`${styles.inputBoxes} ${styles.inputBoxContainer} `}>
                         <input
                           name={`check:${item.id}`}
@@ -281,9 +202,9 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
                           placeholder='Type...'
                           name={`note:${item.id}`}
                           type='text'
+                          required
                           defaultValue={item?.value}
                           onChange={(e) => {
-                            handleChange(e);
                             handleInputChange(item.id, e.target.value);
                           }}
                           // value={item.value}
@@ -320,7 +241,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
               .toString()
               .padStart(2, "0")}-${new Date(date).getDate().toString().padStart(2, "0")}`}
             className={styles.date}
-            onChange={handleChange}
+            onChange={() => {}}
           />
           <div className={styles.footerActionButton}>
             <button
@@ -338,7 +259,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
             </button>
           </div>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }
