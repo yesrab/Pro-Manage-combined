@@ -73,6 +73,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
   }, []);
 
   const submiter = (e) => {
+    e.preventDefault();
     const canSubmit = true;
     const formData = new FormData(e.target);
     formData.set("section", noteToEdit?.section || "todo");
@@ -106,11 +107,11 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
       visibility: formData.get("visibility") || "private",
       todos: todos,
     };
-    console.log();
-    console.log(formattedData);
+    // console.log(formattedData);
     if (canSubmit) {
       if (hasNoteKey) {
         if (formData.get("Priority")) {
+          // console.log("submmiting");
           submit(formattedData, {
             method: noteToEdit ? "PUT" : "POST",
             encType: "application/json",
@@ -118,17 +119,21 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
           revalidator.revalidate();
           toggleModal();
         } else {
+          // console.log("priority none");
           toast.error("Please select a priority");
+          return;
         }
       } else {
+        // console.log("note none");
         toast.error("Please add atleast one note");
+        return;
       }
     }
   };
 
   return (
     <div className={styles.addCardContainer}>
-      <form onSubmit={submiter}>
+      <Form onSubmit={submiter}>
         <label>
           Title <span className={styles.red}>*</span>
           <br />
@@ -259,7 +264,7 @@ function AddCardModal({ NoteReference, allNotes, setModalType, toggleModal }) {
             </button>
           </div>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

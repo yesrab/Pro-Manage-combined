@@ -57,7 +57,7 @@ export const action = async ({ request, params, loginState }) => {
   const responce = await fetchUtils(newRequest);
   toast.promise(toastPromice(responce), {
     loading: "Creating account",
-    success: <b>Added</b>,
+    success: <b>{card.noteId ? "Edited" : "created!"}</b>,
     error: <b>some Error occured Please try again later</b>,
   });
   return null;
