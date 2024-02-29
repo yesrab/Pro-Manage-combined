@@ -139,7 +139,9 @@ function TodoCard({ shareNote, resetAccordian, openModal, collapse, setCollaps, 
           </li>
         </ul>
       ) : null}
-      <h3 title={list.title}>{list.title}</h3>
+      <h3 className={styles.wrap} title={list.title}>
+        {list.title}
+      </h3>
       <CheckListAccordion
         resetAccordion={resetAccordian}
         dispatch={dispatch}
